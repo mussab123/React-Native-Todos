@@ -3,21 +3,21 @@ import { StyleSheet, Text, TextInput, Button, View } from 'react-native';
 
 
 
-export default function AddTodo({ submitHandler }){
+export default function AddTodo({submitHandler}){
 
 
     const [text, setText] = useState("");
 
-    
-  
-    return (
-        <View> 
-            <TextInput style={styles.input} placeholder="new todo..."  onChangeText={newText => setText(newText)}/>
+    return(
+    <View>
 
-            <Button onPress={ () => submitHandler(text)} title="add todo" color='coral' />
-        </View>
+        <TextInput style={styles.input} placeholder="new todo..."  onChangeText={newText => setText(newText)}/>
+        <Button color='coral' title="Submit" onPress={() => submitHandler(text)}/>
+    </View>
+
     )
 }
+
 
 
 const styles = StyleSheet.create({

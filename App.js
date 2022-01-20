@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from "react";
 import Header from './components/header';
 import TodoItem from './components/todoItem';
@@ -16,15 +16,37 @@ export default function App() {
     { text: 'play on the switch', key: '3'}
   ]);
 
-  const submitHandler = (text) => {
-    setTodos([...todos, {text: text, key: Math.random().toString()}])
-   }
 
-  const presshandler = (key) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter(todo => todo.key != key);
-    });
+
+const pressHandler = (key) => {
+
+  setTodos((prevTodos) => {
+    return (
+      prevTodos.filter(todo =>  key != todo.key)
+    )
+  })
+}
+
+
+function submitHandler (text){
+
+  if(text.length > 3){
+    setTodos( [
+      ...todos,
+      {text: text, key: Math.random().toString()}
+    ])
   }
+  else{
+    Alert.alert(title="ooops!", 'todos must be over 3 chars long', [
+      {text: 'Understoon', onPress: () => console.log('alert closed')}
+    ])
+  }
+
+
+
+}
+
+
 
   return (
     <View style={styles.container}>
@@ -33,26 +55,29 @@ export default function App() {
 
       <View style={styles.content}>
 
+          <AddTodo submitHandler={submitHandler}/>
 
         <View style={styles.list}>
 
-          <AddTodo submitHandler={submitHandler} />
+
+          <FlatList
+
+          data={todos}
+
+          renderItem={({ item }) => (
 
 
-          <FlatList 
+            <TodoItem item={item} pressHandler={pressHandler}/>
 
 
-            data={todos}
-            renderItem={( { item } ) => (
+          )}
 
 
-              <TodoItem item={item} presshandler={presshandler}/>
 
-            )}  
-          
-          
-          
+
           />
+
+   
 
         </View>
       </View>
