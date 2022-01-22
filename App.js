@@ -5,6 +5,8 @@ import Header from './components/header';
 import TodoItem from './components/todoItem';
 import { LogBox } from 'react-native';
 import AddTodo from "./components/addtodo";
+import Sandbox from './components/sandbox';
+
 
 
 export default function App() {
@@ -50,8 +52,8 @@ function submitHandler (text){
 
   return (
 
+
     <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
       console.log('dismissed keyboard')
 
     }}>
@@ -109,7 +111,9 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    flex: 1,
     padding: 40,
+    backgroundColor: 'pink',
   },
 
 
